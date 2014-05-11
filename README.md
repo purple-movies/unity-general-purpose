@@ -1,4 +1,4 @@
-unity-general-purpouse
-======================
+unity-general-purpose
+=====================
 
 Purple Movies General Purpose Unity Library
