@@ -1,6 +1,8 @@
+using purplemovies;
+
 using UnityEngine;
 using System.Collections;
-using purplemovies;
+//using System.Collections.Generic;
 
 /**
  * Spawns one of the supplied Prefabs after a random time-period specified by the min/max-time parameters.
@@ -8,7 +10,10 @@ using purplemovies;
  */
 public class RandomSpawner : MonoBehaviour
 {
+//	public List<GameObject> spawnPoints = new List<GameObject> ();
+
 	public GameObject[] spawns = new GameObject[1];
+	public GameObject[] spawnPoints = new GameObject[ 0 ];
 	public float minTime = .5f;
 	public float maxTime = 3;
 	public Quaternion rotationStart = new Quaternion ();
@@ -16,6 +21,7 @@ public class RandomSpawner : MonoBehaviour
 	
 	private bool validPrefabs;
 	private int prefabsEndIndex = 0;
+	private int spawnPointEndIndex = 0;
 
 	void Start ()
 	{
@@ -28,8 +34,12 @@ public class RandomSpawner : MonoBehaviour
 		{
 			validPrefabs = true;
 			prefabsEndIndex = spawns.Length;
+			spawnPointEndIndex = spawns.Length;
+			System.Array.Resize( ref spawnPoints, spawnPointEndIndex );
+			spawnPoints[ spawnPointEndIndex - 1 ] = gameObject;
+//			spawnPoints.Add( gameObject );
 		}
-		StartCoroutine( "spawnAfterRandomTime" );
+		StartCoroutine( spawnAfterRandomTime() );
 	}
 	
 	IEnumerator spawnAfterRandomTime()
@@ -39,9 +49,10 @@ public class RandomSpawner : MonoBehaviour
 			float waitTime = Random.Range( minTime, maxTime );
 			yield return new WaitForSeconds( waitTime );
 
+			Vector3 spawnPosition = spawnPoints[ Random.Range(0, spawnPointEndIndex) ].transform.position;
 			int i = Random.Range( 0, prefabsEndIndex );
 			Quaternion randomRotation = PMathHelper.random( rotationStart, rotationEnd );
-			GameObject.Instantiate(spawns[ i ], transform.position, randomRotation );
+			GameObject.Instantiate(spawns[ i ], spawnPosition, randomRotation );
 		}
 	}
 }
