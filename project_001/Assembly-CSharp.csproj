@@ -47,7 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\purplemovies\code\PMathHelper.cs" />
-     <Compile Include="Assets\purplemovies\code\RandomSpawner.cs" />
+     <Compile Include="Assets\purplemovies\code\spawning\SpawnOnBase.cs" />
+     <Compile Include="Assets\purplemovies\code\spawning\SpawnOnInterval.cs" />
+     <Compile Include="Assets\purplemovies\code\spawning\SpawnOnRandomInterval.cs" />
+     <Compile Include="Assets\purplemovies\code\spawning\Spawner.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
